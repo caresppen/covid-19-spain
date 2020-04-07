@@ -1,10 +1,4 @@
 pandas
 numpy
-seaborn
-voila
-ipyvuetify
 plotly
-datetime
-tabula
-requests
-lxml
+

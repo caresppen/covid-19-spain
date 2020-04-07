@@ -1,4 +1,8 @@
 pandas
 numpy
+seaborn
+voila
+ipyvuetify
 plotly
-gunicorn
+voila
+voila-material

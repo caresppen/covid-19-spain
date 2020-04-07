@@ -1,1 +1,1 @@
-web: gunicorn app:server & voila --port=$PORT --no-browser notebooks/COVID_Report.ipynb
+web: voila --port=$PORT --no-browser --template=material --enable_nbextensions=True notebooks/COVID_Report.ipynb

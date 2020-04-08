@@ -4,8 +4,8 @@
 import pandas as pd
 import tabula
 
-root = r'Downloads'
-dest = r'Downloads\root'
+root = r'Downloads\isciii_pdf_reports'
+dest = r'Downloads\csv_report_tables\root'
 
 # Interacting with the user:
 # last = COVID19_download.last
@@ -19,12 +19,12 @@ dest = r'Downloads\root'
 # df_edad_total: ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados" - eliminate, "UCI", "% UCI" - eliminate, "Fallecidos", "% Fallecidos" - eliminate, "% Letalidad" - eliminate]
 # df_edad_mujeres: ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados" - eliminate, "UCI", "% UCI" - eliminate, "Fallecidos", "% Fallecidos" - eliminate, "% Letalidad" - eliminate]
 # df_edad_hombres: ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados" - eliminate, "UCI", "% UCI" - eliminate, "Fallecidos", "% Fallecidos" - eliminate, "% Letalidad" - eliminate]
-first_doc = 67 # fixed to 53
-last_doc = 67
+first_doc = 69 # fixed to 53
+last_doc = 69
 df_dict = {}
 for i in range(first_doc, last_doc + 1):
     try:
-        pdf_doc = r'Downloads\\' + str(i) + '_COVID-19.pdf'
+        pdf_doc = r'Downloads\isciii_pdf_reports\\' + str(i) + '_COVID-19.pdf'
         table = tabula.read_pdf(pdf_doc, pages='all', multiple_tables=True)
         if (i == 57) or (i == 65):
             df_dict[i] = pd.DataFrame(table[2])
@@ -35,7 +35,7 @@ for i in range(first_doc, last_doc + 1):
     except Exception as e:
         print("Error {}".format(e))
     print(str(i) + "_Demog.csv generated to be explored!")
-#print(df_dict[50])
+print(df_dict[50])
 
 # Table 3. Casos confirmados de COVID-19 en Europa: df_eu
 

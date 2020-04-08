@@ -6,8 +6,9 @@ import numpy as np
 import fnmatch
 import datetime as dt
 
-output = r'Downloads'
-master_root = r'Downloads\CCAA_data.csv'
+output = r'Downloads\csv_report_tables'
+git = r'Downloads\csv_report_tables'
+master_root = r'Downloads\csv_report_tables\CCAA_data.csv'
 
 ref_header = ['CCAA', 'Infectados', 'IA (14 d.)', 'Hospitalizados', 'UCI', 'Fallecidos', 'Curados', 'Nuevos']
 df_master = pd.DataFrame(columns=['doc', 'CCAA', 'Infectados', 'Hospitalizados', 'UCI', 'Fallecidos', 'Curados', 'Nuevos'])
@@ -23,7 +24,7 @@ ccaa_mapping = {'Andalucía':'Andalucia', 'Aragón':'Aragon', 'Asturias':'Asturi
 
 # Tabla 1. Distribución de casos notificados de COVID-19 en España por CCAA
 first = 36
-last = 67
+last = 69
 for e in range(first, last + 1):
     root = r'Downloads\root\\' + \
         str(e) + '_CCAA.csv'
@@ -169,6 +170,11 @@ df_master['CCAA'] = df_master.CCAA.map(ccaa_mapping)
 out_master = output + '\\CCAA_data.csv'
 df_master.to_csv(out_master, index=False)
 print("CCAA_data.csv ready to be explored!")
+
+# git
+git_master = git + '\\CCAA_data.csv'
+df_master.to_csv(git_master, index=False)
+print("CCAA_data.csv saved in git!")
 
 # Tabla 2. Características demográficas y clínicas de los casos de COVID-19 en España
 

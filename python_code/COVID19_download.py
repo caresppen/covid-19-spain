@@ -38,7 +38,7 @@ def read_pdf_report(start, end):
         else:
             url = url_start + str(i) + url_end
 
-        chain = "Downloads\\" + \
+        chain = "Downloads\isciii_pdf_reports\\" + \
             str(i) + "_COVID-19.pdf"
 
         try:

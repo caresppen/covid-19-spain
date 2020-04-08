@@ -4,8 +4,9 @@
 import pandas as pd
 import tabula
 
-root = r'Downloads'
-dest = r'Downloads\root'
+root = r'Downloads\isciii_pdf_reports'
+file = r"Downloads\isciii_pdf_reports\\36_COVID-19.pdf"
+dest = r'Downloads\csv_report_tables\root'
 
 # tabula - convert all PDFs in a directory (.pdf->.csv)
 # tabula.convert_into_by_batch(root, output_format='csv', pages='all')
@@ -28,12 +29,12 @@ dest = r'Downloads\root'
 ### Tables format from Report 53 ###
 # Tabla 1. Casos COVID-19, incidencia acumulada (IA) en los últimos 14 días, ingreso en UCI y fallecidos por Comunidades Autónomas en España: df_ccaa
 # columns = [CCAA, TOTAL conf. == Infectados, IA (14 d.), Hospitalizados, UCI, Fallecidos, Curados, Nuevos]
-first_doc = 67 # 36
-last_doc = 67
+first_doc = 69 # 36
+last_doc = 69
 df_dict = {}
 for i in range(first_doc, last_doc + 1):
     try:
-        pdf_doc = r'Downloads\\' + str(i) + '_COVID-19.pdf'
+        pdf_doc = r'Downloads\isciii_pdf_reports\\' + str(i) + '_COVID-19.pdf'
         table = tabula.read_pdf(pdf_doc, pages='all', multiple_tables=True)
         if (((i >= 36) and (i <= 43)) or ((i == 46) or (i == 52))):
             n = 1

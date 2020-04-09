@@ -18,6 +18,7 @@ df_master_hom = df_master
 # last = COVID19_download.last
 # start = COVID19_download.start
 # end = COVID19_download.end
+last = int(input("(Master) Last report? "))
 
 # Tabla 2. Características demográficas y clínicas de los casos de COVID-19 en España
 # df_edad_total: ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados" - eliminate, "UCI", "% UCI" - eliminate, "Fallecidos", "% Fallecidos" - eliminate, "% Letalidad" - eliminate]
@@ -25,10 +26,10 @@ df_master_hom = df_master
 # df_edad_hombres: ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados" - eliminate, "UCI", "% UCI" - eliminate, "Fallecidos", "% Fallecidos" - eliminate, "% Letalidad" - eliminate]
 # Data from report 53
 first = 53 # fixed to 53
-last = 69
+last = last
 # Error for 53-57 -> different cleanings
 for i in range(first, last+1):
-    root = r'Downloads\root\\' + \
+    root = r'Downloads\csv_report_tables\root\\' + \
         str(i) + '_Demog.csv'
     
     file = pd.read_csv(root, decimal=',', thousands='.')
@@ -39,12 +40,19 @@ for i in range(first, last+1):
     df_raw = df_raw.dropna(axis='columns', thresh=1)
     df_raw['doc'] = i
 
+    if (i >= 69):
+        df_raw = df_raw.iloc[13:]
+        df_raw['SECRETARIA GENERAL'] = df_raw['SECRETARIA GENERAL'].astype(str).str.replace('90 y +', '90_')
+        df_raw = df_raw['SECRETARIA GENERAL'].str.split(' ', n=9, expand=True)
+
+    df_raw['doc'] = i
+
     # Naming & setting the raw df columns
     if (i >= 58) and (i <= 60):
         df_raw.columns = ["Edad", "Infectados", "Hospitalizados", "UCI", "Fallecidos", "Letalidad", "doc"]
         df_raw = df_raw[ref_header]
         df_raw = df_raw.drop("Letalidad", axis=1)
-    elif (i == 69):
+    elif (i >= 69):
         df_raw.columns = ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados", "UCI", "% UCI", "Fallecidos", "Letalidad", "% Letalidad", "doc"]
         df_raw = df_raw[["doc", "Edad", "Infectados", "Hospitalizados", "% Hospitalizados", "UCI", "% UCI", "Fallecidos", "Letalidad", "% Letalidad"]]
         df_raw = df_raw.drop(["% Hospitalizados", "% UCI", "Letalidad", "% Letalidad"], axis=1)        
@@ -56,13 +64,15 @@ for i in range(first, last+1):
         df_raw.columns = ["Edad", "Infectados", "Hospitalizados", "UCI", "% UCI", "Fallecidos", "Letalidad", "% Letalidad", "doc"]
         df_raw = df_raw[["doc", "Edad", "Infectados", "Hospitalizados", "UCI", "% UCI", "Fallecidos", "Letalidad", "% Letalidad"]]
         df_raw = df_raw.drop(["% UCI", "Letalidad", "% Letalidad"], axis=1)
+    
+
     # Defining each of the 3 df from the df_raw: df_dem_tot, df_dem_muj, df_dem_hom
     dem_type = ['tot', 'muj', 'hom']
-    if (i == 69):    
-        df_dem_tot = df_raw[1:11]
-        df_dem_muj = df_raw[19:29]
-        df_dem_hom = df_raw[37:47]
-    elif (i >= 58):
+    if (i >= 69):    
+        df_dem_tot = df_raw[0:10]
+        df_dem_muj = df_raw[18:28]
+        df_dem_hom = df_raw[36:46]
+    elif (i >= 58) and (i <= 68):
         df_dem_tot = df_raw[4:14]
         df_dem_muj = df_raw[22:32]
         df_dem_hom = df_raw[39:49]
@@ -82,6 +92,9 @@ for i in range(first, last+1):
         df_dem_tot = df_raw[6:16]
         df_dem_muj = df_raw[23:33]
         df_dem_hom = df_raw[39:49]
+
+    # print(df_dem_hom)
+    # print(df_dem_hom.info())
 
 ### df_dem_tot ###
 

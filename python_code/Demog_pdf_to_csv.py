@@ -11,6 +11,7 @@ dest = r'Downloads\csv_report_tables\root'
 # last = COVID19_download.last
 # start = COVID19_download.start
 # end = COVID19_download.end
+last = int(input("(Master) Last report? "))
 
 ### Report per Table from the data source ###
 ### Tables format from Report 53 ###
@@ -19,8 +20,8 @@ dest = r'Downloads\csv_report_tables\root'
 # df_edad_total: ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados" - eliminate, "UCI", "% UCI" - eliminate, "Fallecidos", "% Fallecidos" - eliminate, "% Letalidad" - eliminate]
 # df_edad_mujeres: ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados" - eliminate, "UCI", "% UCI" - eliminate, "Fallecidos", "% Fallecidos" - eliminate, "% Letalidad" - eliminate]
 # df_edad_hombres: ["Edad", "Infectados", "Hospitalizados", "% Hospitalizados" - eliminate, "UCI", "% UCI" - eliminate, "Fallecidos", "% Fallecidos" - eliminate, "% Letalidad" - eliminate]
-first_doc = 69 # fixed to 53
-last_doc = 69
+first_doc = last # 53
+last_doc = last
 df_dict = {}
 for i in range(first_doc, last_doc + 1):
     try:
@@ -35,7 +36,7 @@ for i in range(first_doc, last_doc + 1):
     except Exception as e:
         print("Error {}".format(e))
     print(str(i) + "_Demog.csv generated to be explored!")
-print(df_dict[50])
+#print(df_dict[50])
 
 # Table 3. Casos confirmados de COVID-19 en Europa: df_eu
 

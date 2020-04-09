@@ -21,12 +21,13 @@ ccaa_mapping = {'Andalucía':'Andalucia', 'Aragón':'Aragon', 'Asturias':'Asturi
 # last = COVID19_download.last
 # start = COVID19_download.start
 # end = COVID19_download.end
+last = int(input("(Master) Last report? "))
 
 # Tabla 1. Distribución de casos notificados de COVID-19 en España por CCAA
 first = 36
-last = 69
+last = last
 for e in range(first, last + 1):
-    root = r'Downloads\root\\' + \
+    root = r'Downloads\csv_report_tables\root\\' + \
         str(e) + '_CCAA.csv'
     
     file = pd.read_csv(root)
@@ -52,10 +53,15 @@ for e in range(first, last + 1):
     elif ((e == 53) or (e == 54)):
         header = df.columns
         df = df.rename(columns = dict(zip(header, ref_header)))
-    elif e >= 55:
+    elif (e >= 55) and (e <= 68):
         new_header = ['CCAA', 'Infectados', 'IA (14 d.)', 'Hospitalizados', 'UCI', 'Fallecidos', 'Curados', 'Nuevos']
         dict_header = dict(zip(df.columns,new_header))
         df = df[4:]
+        df = df.rename(columns = dict_header)
+    elif (e >= 69):
+        new_header = ['CCAA', 'Infectados', 'IA (14 d.)', 'Hospitalizados', 'UCI', 'Fallecidos', 'Curados', 'Nuevos']
+        dict_header = dict(zip(df.columns,new_header))
+        df = df[3:]
         df = df.rename(columns = dict_header)
     
     # Disregard '.' as commas for number formating 

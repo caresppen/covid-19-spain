@@ -24,13 +24,14 @@ dest = r'Downloads\csv_report_tables\root'
 # last = COVID19_download.last
 # start = COVID19_download.start
 # end = COVID19_download.end
+last = int(input("(Master) Last report? "))
 
 ### Report per Table from the data source ###
 ### Tables format from Report 53 ###
 # Tabla 1. Casos COVID-19, incidencia acumulada (IA) en los últimos 14 días, ingreso en UCI y fallecidos por Comunidades Autónomas en España: df_ccaa
 # columns = [CCAA, TOTAL conf. == Infectados, IA (14 d.), Hospitalizados, UCI, Fallecidos, Curados, Nuevos]
-first_doc = 69 # 36
-last_doc = 69
+first_doc = last # 36
+last_doc = last
 df_dict = {}
 for i in range(first_doc, last_doc + 1):
     try:

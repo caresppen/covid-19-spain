@@ -42,7 +42,7 @@ for i in range(first, last+1):
 
     if (i >= 69):
         df_raw = df_raw.iloc[13:]
-        df_raw['SECRETARIA GENERAL'] = df_raw['SECRETARIA GENERAL'].astype(str).str.replace('90 y +', '90_')
+        df_raw['SECRETARIA GENERAL'] = df_raw['SECRETARIA GENERAL'].astype(str).str.replace('90 y +', '90_+')
         df_raw = df_raw['SECRETARIA GENERAL'].str.split(' ', n=9, expand=True)
 
     df_raw['doc'] = i
@@ -106,8 +106,6 @@ for i in range(first, last+1):
     elif (i >= 53) and (i <= 57):
         aux_hospit = df_dem_tot['Hospitalizados'].str.split(' ', n=1, expand=True)
         df_dem_tot['Hospitalizados'] = aux_hospit[0]
-    elif (i == 69):
-        pass
     elif (i >= 60):
         aux_hospit = df_dem_tot['Hospitalizados'].str.split(' ', n=1, expand=True)
         aux_uci = df_dem_tot['UCI'].str.split(' ', n=1, expand=True)
@@ -121,6 +119,7 @@ for i in range(first, last+1):
 
     # Normalizing "Edad" to avoid 'Oct' on Excel
     df_dem_tot["Edad"] = df_dem_tot["Edad"].str.replace('80 y +', '80-89')
+    df_dem_tot["Edad"] = df_dem_tot["Edad"].str.replace('90_+', '90 y +')
     df_dem_tot["Edad"] = df_dem_tot["Edad"].str.replace('+', '')
     df_dem_tot["Edad"] = df_dem_tot["Edad"].str.replace('90 y ', '90-+')
     df_dem_tot["Edad"] = df_dem_tot["Edad"].str.replace('-', '_')
@@ -138,6 +137,10 @@ for i in range(first, last+1):
     out_master = output + '\\' + str(i) + '_Demog_tot_data.csv'
     df_dem_tot.to_csv(out_master, index=False)
 
+    # Generating the output to git
+    out_git = git + '\\' + str(i) + '_Demog_tot_data.csv'
+    df_dem_tot.to_csv(out_git, index=False)
+
 ### df_dem_muj ###
 
     # Manipulating and cleaning data: df['Hospitalizados']
@@ -148,8 +151,6 @@ for i in range(first, last+1):
     elif (i >= 53) and (i <= 57):
         aux_hospit = df_dem_muj['Hospitalizados'].str.split(' ', n=1, expand=True)
         df_dem_muj['Hospitalizados'] = aux_hospit[0]
-    elif (i == 69):
-        pass
     elif (i >= 60):
         aux_hospit = df_dem_muj['Hospitalizados'].str.split(' ', n=1, expand=True)
         aux_uci = df_dem_muj['UCI'].str.split(' ', n=1, expand=True)
@@ -164,6 +165,7 @@ for i in range(first, last+1):
 
     # Normalizing "Edad" to avoid 'Oct' on Excel
     df_dem_muj["Edad"] = df_dem_muj["Edad"].str.replace('80 y +', '80-89')
+    df_dem_muj["Edad"] = df_dem_muj["Edad"].str.replace('90_+', '90 y +')
     df_dem_muj["Edad"] = df_dem_muj["Edad"].str.replace('+', '')
     df_dem_muj["Edad"] = df_dem_muj["Edad"].str.replace('90 y ', '90-+')
     df_dem_muj["Edad"] = df_dem_muj["Edad"].str.replace('-', '_')
@@ -181,6 +183,10 @@ for i in range(first, last+1):
     out_master = output + '\\' + str(i) + '_Demog_muj_data.csv'
     df_dem_muj.to_csv(out_master, index=False)
 
+    # Generating the output to git
+    out_git = git + '\\' + str(i) + '_Demog_tot_data.csv'
+    df_dem_muj.to_csv(out_git, index=False)
+
 ### df_dem_hom ###
 
     # Manipulating and cleaning data: df['Hospitalizados']
@@ -191,8 +197,6 @@ for i in range(first, last+1):
     elif (i >= 53) and (i <= 57):
         aux_hospit = df_dem_hom['Hospitalizados'].str.split(' ', n=1, expand=True)
         df_dem_hom['Hospitalizados'] = aux_hospit[0]
-    elif (i == 69):
-        pass
     elif (i >= 60):
         aux_hospit = df_dem_hom['Hospitalizados'].str.split(' ', n=1, expand=True)
         aux_uci = df_dem_hom['UCI'].str.split(' ', n=1, expand=True)
@@ -206,6 +210,7 @@ for i in range(first, last+1):
 
     # Normalizing "Edad" to avoid 'Oct' on Excel
     df_dem_hom["Edad"] = df_dem_hom["Edad"].str.replace('80 y +', '80-89')
+    df_dem_hom["Edad"] = df_dem_hom["Edad"].str.replace('90_+', '90 y +')
     df_dem_hom["Edad"] = df_dem_hom["Edad"].str.replace('+', '')
     df_dem_hom["Edad"] = df_dem_hom["Edad"].str.replace('90 y ', '90-+')
     df_dem_hom["Edad"] = df_dem_hom["Edad"].str.replace('-', '_')
@@ -222,6 +227,10 @@ for i in range(first, last+1):
     # Generating the output
     out_master = output + '\\' + str(i) + '_Demog_hom_data.csv'
     df_dem_hom.to_csv(out_master, index=False)
+
+    # Generating the output to git
+    out_git = git + '\\' + str(i) + '_Demog_tot_data.csv'
+    df_dem_hom.to_csv(out_git, index=False)
 
     # Create the 3 master files: demog_tot_data.csv ; demog_muj_data.csv ; demog_hom_data.csv
     df_master_tot = df_master_tot.append(df_dem_tot, sort=False)
